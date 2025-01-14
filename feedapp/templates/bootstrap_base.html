@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="auto">
+{% load static %}
+<head>
+    <script src="{% static '/js/color-modes.js' %}"></script>
+    <meta charset="utf-8">
+    {% block head_content %}
+    {% endblock head_content %}
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Assertiva Demo Chile App</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.ico' %}"/>
+    <script>
+        (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-P64QW2N7');
+    </script>
+</head>
+<body>
+<header data-bs-theme="dark">
+    <div class="collapse text-bg-dark" id="navbarHeader">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-8 col-md-7 py-4">
+                    <h4>Sobre esta Demostración</h4>
+                    <p class="text-body-secondary">Esta es una página de demostración para revisar temas de manejo y
+                        privacidad de datos personales.</p>
+                </div>
+                <div class="col-sm-4 offset-md-1 py-4">
+                    <h4>Contactos</h4>
+                    <ul class="list-unstyled">
+                        <li><a href="https://www.linkedin.com/company/assertiva-s.a./" class="text-white"
+                               target="_blank">Encuentranos en
+                            LinkenIn</a></li>
+                        <li><a href="https://www.assertiva.biz/" class="text-white" target="_blank">Assertiva Web
+                            Site</a></li>
+                        {% if not session %}
+                        <li><a href="{% url 'login' %}" class="text-white">Ingresar / Registrarse</a></li>
+                        {% else %}
+                        <li><a href="{% url 'logout' %}" class="text-white">Cerrar Sesión</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+                <img src="{% static 'images/tarjeta-de-credito.png' %}" alt="Banco del Nuevo Mundo" width="50"
+                     height="50" fill="none">
+                <div>&nbsp;</div>
+                <strong>Banco del Nuevo Mundo (Demo)</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader"
+                    aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </div>
+    </div>
+    {% block header_content %}
+    {% endblock header_content %}
+</header>
+{% block page_content %}
+{% endblock page_content %}
+<footer class="text-body-secondary py-5">
+    <div class="container">
+        <p class="float-end mb-1">
+            <a href="#">Ir al inicio</a>
+            &nbsp;|&nbsp;
+            <a href="{% url 'policy' %}">Políticas de Privacidad</a>
+            &nbsp;|&nbsp;
+            <a href="{% url 'terms' %}">Términos y Condiciones</a>
+        </p>
+        <p class="mb-1">Aplicación de Demostración &copy; Assertiva, Estamos para ayudar!</p>
+        <p class="mb-0">Conocenos <a href="https://www.assertiva.biz/">Visita nuestro web site</a></p>
+    </div>
+    {% block footer_content %}
+    {% endblock footer_content %}
+</footer>
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P64QW2N7"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
+</body>
+</html>

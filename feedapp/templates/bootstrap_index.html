@@ -1,0 +1,113 @@
+{% extends "bootstrap_base.html" %}
+{% load static %}
+{% if session %}
+{% block head_content %}
+<script>
+    !function(){window.semaphore=window.semaphore||[],window.ketch=function(){window.semaphore.push(arguments)};var e=document.createElement("script");e.type="text/javascript",e.src="https://global.ketchcdn.com/web/v3/config/assertiva/assertiva_chile_property/boot.js",e.defer=e.async=!0,document.getElementsByTagName("head")[0].appendChild(e)}();
+</script>
+<script>
+    function experienceClosed(reason){
+    if (reason != 'willNotShow') {
+      if (document.referrer) {
+        window.location.assign(document.referrer);
+      } else {
+        window.location.assign("{% url 'logout' %}");
+    }
+  }
+}
+</script>
+{% endblock head_content %}
+{% endif %}
+{% block page_content %}
+{% if session %}
+<main class="container">
+    <div><br></div>
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+        <div class="row">
+            <div class="col-lg-8">
+                <h1 class="fst-italic">Bienvenido {{session.userinfo.name}}!</h1>
+                <br>
+                <p class="lead  text-body-emphasis fw-bold"> Nombre: {{session.userinfo.nickname}} </p>
+                <p class="lead  text-body-emphasis fw-bold"> Correo Electronico: {{session.userinfo.email}} </p>
+                <p class="lead  text-body-emphasis fw-bold"> Correo Verificado: {{session.userinfo.email_verified}} </p>
+                <p class="lead  text-body-emphasis fw-bold"> AuhtO Tenant: {{session.userinfo.iss}} </p>
+            </div>
+            <div class="col-lg-4">
+                <div class="bd-placeholder-img" style="width: 100%; height: 100%">
+                    <img class="card-img-top" src="{% static 'images/dreamstime_xxl_137074336.jpg' %}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                {% for service in services %}
+                <div class="col">
+                    <div class="card shadow-sm h-100">
+                        <div class="bd-placeholder-img" style="width: 100%; height: 100%">
+                            {% if service.image %}
+                            <img class="card-img-top" src="{{ service.image.url }}">
+                            {% endif %}
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">{{ service.description }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a href="{% url 'detail' service.pk %}" class="btn btn-primary my-2">Ver
+                                        Detalles</a>
+                                </div>
+                                <small class="text-body-secondary">{{ service.title }}</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <section class="py-5 text-center container">
+        <div class="row py-lg-5">
+            <div class="col-lg-6 col-md-8 mx-auto">
+                <h1 class="fw-light">Banco del Nuevo Mundo</h1>
+                <div class="card">
+                    <img class="card-img-top" src="{% static 'images/dreamstime_xxl_137074336.jpg' %}"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <p class="card-text">La organización Banco del Nuevo Mundo nos permite mostrar la gestión
+                            del ciclo de vida de nuestros clientes (CIAM) y la gestión del consentimiento de los mismos
+                            para el
+                            tratamiento de su privacidad.
+                        </p>
+                    </div>
+                </div>
+                <a href="{% url 'login' %}" class="btn btn-primary my-2">Ingresar / Registrarse</a>
+            </div>
+        </div>
+    </section>
+    {% endif %}
+</main>
+{% endblock page_content %}
+{% block footer_content %}
+{% if session %}
+<div class="container">
+    <p class="float-end mb-1">
+        <a href="{% url 'logout' %}">Cerrar Sesión</a>
+    </p>
+</div>
+<div class="container">
+    <p class="float-end mb-1">
+        &nbsp;|&nbsp;
+    </p>
+</div>
+<div class="container">
+    <p class="float-end mb-1">
+        <a href="#" onclick="ketch('showPreferences');">Opciones de Privacidad</a>
+    </p>
+</div>
+<script>
+    $('privacy').click( function(e) {e.preventDefault();  ; return false; } );
+</script>
+{% endif %}
+{% endblock footer_content %}
